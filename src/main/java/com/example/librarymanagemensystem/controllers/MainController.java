@@ -29,7 +29,7 @@ public class MainController {
 //        Parent root = FXMLLoader.load(getClass().getResource("manage-books.fxml"));
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("manage-books2.fxml"));
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(fxmlLoader.load(), 500, 320);
+        Scene scene = new Scene(fxmlLoader.load());
 //        stage.setScene(new Scene(root));
         stage.setTitle("Books");
         stage.setScene(scene);
@@ -39,4 +39,5 @@ public class MainController {
 //        stage.setScene(new Scene(root));
 //        stage.show();
     }
+
 }

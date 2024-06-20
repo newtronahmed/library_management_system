@@ -12,7 +12,7 @@
     <top>
         <HBox spacing="10.0" style="-fx-padding: 10px;">
             <TextField fx:id="searchField" promptText="Search..." />
-<!--            <Button text="Search" onAction="#handleSearchButton" />-->
+            <Button text="Search" onAction="#handleSearchButton" />
 <!--            <Button text="Add Book" onAction="#handleAddBookButton" />-->
 <!--            <Button text="Return Book" onAction="#handleReturnBookButton" />-->
         </HBox>
@@ -32,8 +32,10 @@
             <TextField fx:id="titleField" promptText="Title" />
             <TextField fx:id="authorField" promptText="Author" />
             <TextField fx:id="genreField" promptText="Genre" />
-<!--            <Button text="Add" onAction="#handleAddButton" />-->
-            <Button text="Add"  />
+            <Button text="Commit" onAction="#handleAddBookButton" />
+            <Button text="Save" onAction="#handleSaveButton" />
+
+            <!--            <Button text="Add"  />-->
 
         </VBox>
     </right>

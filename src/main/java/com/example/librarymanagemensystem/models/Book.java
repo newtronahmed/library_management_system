@@ -9,6 +9,11 @@ public class Book {
 //    private int publishedYear;
     private Boolean isIssued;
 
+    public Book (String title, String author, String genre){
+        this.title = title;
+        this.author = author;
+        this.genre = genre;
+    }
     // Constructor
     public Book(int id, String title, String author, String genre, boolean isIssued) {
         this.id = id;
