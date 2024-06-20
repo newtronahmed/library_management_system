@@ -16,8 +16,8 @@ public class LibraryDAO {
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                System.out.println("Book ID: " + rs.getInt("BookID"));
-                System.out.println("Title: " + rs.getString("Title"));
+                System.out.println("Book ID: " + rs.getInt("id"));
+                System.out.println("Title: " + rs.getString("title"));
                 // Process other columns
             }
         } catch (SQLException e) {

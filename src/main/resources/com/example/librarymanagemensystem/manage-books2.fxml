@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.librarymanagemensystem.controllers.BooksController">
+    <top>
+        <HBox spacing="10.0" style="-fx-padding: 10px;">
+            <TextField fx:id="searchField" promptText="Search..." />
+<!--            <Button text="Search" onAction="#handleSearchButton" />-->
+<!--            <Button text="Add Book" onAction="#handleAddBookButton" />-->
+<!--            <Button text="Return Book" onAction="#handleReturnBookButton" />-->
+        </HBox>
+    </top>
+    <center>
+        <TableView fx:id="tableView" prefWidth="600.0">
+            <columns>
+                <TableColumn prefWidth="100.0" text="ID" fx:id="id" />
+                <TableColumn prefWidth="200.0" text="Title" fx:id="title" />
+                <TableColumn prefWidth="150.0" text="Author" fx:id="author" />
+                <TableColumn prefWidth="150.0" text="Genre" fx:id="genre" />
+            </columns>
+        </TableView>
+    </center>
+    <right>
+        <VBox spacing="10.0" style="-fx-padding: 10px;">
+            <TextField fx:id="titleField" promptText="Title" />
+            <TextField fx:id="authorField" promptText="Author" />
+            <TextField fx:id="genreField" promptText="Genre" />
+<!--            <Button text="Add" onAction="#handleAddButton" />-->
+            <Button text="Add"  />
+
+        </VBox>
+    </right>
+</BorderPane>

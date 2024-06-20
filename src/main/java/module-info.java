@@ -15,4 +15,8 @@ module com.example.librarymanagemensystem {
 
     opens com.example.librarymanagemensystem to javafx.fxml;
     exports com.example.librarymanagemensystem;
+    exports com.example.librarymanagemensystem.controllers;
+    exports com.example.librarymanagemensystem.models;
+
+    opens com.example.librarymanagemensystem.controllers to javafx.fxml;
 }
