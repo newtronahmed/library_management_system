@@ -53,6 +53,7 @@ public class BooksController {
         title.setCellValueFactory(new PropertyValueFactory<>("title"));
         author.setCellValueFactory(new PropertyValueFactory<>("author"));
         genre.setCellValueFactory(new PropertyValueFactory<>("genre"));
+//        genre.setCellValueFactory(new PropertyValueFactory<>("isIssued"));
 
         List<Book> books = BookDAO.getAllBooks();
         observableBooks = FXCollections.observableArrayList(books);
