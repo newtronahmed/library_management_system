@@ -3,6 +3,7 @@ package com.example.librarymanagemensystem.controllers;
 
 import com.example.librarymanagemensystem.db.BookDAO;
 import com.example.librarymanagemensystem.models.Book;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -10,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 import java.util.stream.Collectors;
@@ -32,6 +34,10 @@ public class SearchController {
         title.setCellValueFactory(new PropertyValueFactory<>("title"));
         author.setCellValueFactory(new PropertyValueFactory<>("author"));
         isIssued.setCellValueFactory(new PropertyValueFactory<>("isIssued"));
+//        List<Book> books = BookDAO.getAllBooks();
+//        observableBooks = FXCollections.observableArrayList(books);
+//        bookQueue = new LinkedList<>();
+//        tableView.setItems(observableBooks);
     }
 
     @FXML

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.DatePicker?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.librarymanagemensystem.controllers.PatronController">
+    <top>
+        <HBox spacing="10.0" style="-fx-padding: 10px;">
+            <!--            <TextField fx:id="searchField" promptText="Search..." />-->
+            <Button text="Go to search page" onAction="#handleSearchButton" />
+            <!--            <Button text="Add Book" onAction="#handleAddBookButton" />-->
+            <!--            <Button text="Return Book" onAction="#handleReturnBookButton" />-->
+        </HBox>
+    </top>
+    <center>
+        <TableView fx:id="tableView" >
+            <columns>
+                <TableColumn prefWidth="100.0" text="ID" fx:id="id" />
+                <TableColumn prefWidth="200.0" text="Name" fx:id="name" />
+                <TableColumn prefWidth="150.0" text="Email" fx:id="email" />
+                <TableColumn prefWidth="150.0" text="Membership Date" fx:id="membershipDate" />
+            </columns>
+        </TableView>
+    </center>
+    <right>
+        <VBox spacing="10.0" style="-fx-padding: 10px;">
+            <TextField fx:id="nameField" promptText="Name" />
+            <TextField fx:id="emailField" promptText="Email" />
+            <DatePicker fx:id="membershipDatePicker" promptText="Membership date" />
+            <Button text="Commit" onAction="#handleAddPatronButton" />
+            <Button text="Save" onAction="#handleSaveButton" />
+
+            <!--            <Button text="Add"  />-->
+
+        </VBox>
+    </right>
+</BorderPane>

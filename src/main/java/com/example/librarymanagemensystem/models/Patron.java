@@ -1,11 +1,17 @@
 package com.example.librarymanagemensystem.models;
-import java.util.Date;
+import java.sql.Date;
 
 public class Patron {
     private int id;
     private String name;
     private String email;
     private Date membershipDate;
+
+    public Patron(String name, String email, Date membershipDate){
+        this.name = name;
+        this.email = email;
+        this.membershipDate = membershipDate;
+    }
 
     // Constructor
     public Patron(int id, String name, String email, Date membershipDate) {
@@ -40,8 +46,8 @@ public class Patron {
         this.email = email;
     }
 
-    public Date getMembershipDate() {
-        return membershipDate;
+    public java.sql.Date getMembershipDate() {
+        return (java.sql.Date) membershipDate;
     }
 
     public void setMembershipDate(Date membershipDate) {

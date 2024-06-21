@@ -3,17 +3,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.librarymanagementsystem.LibraryController" spacing="10" alignment="CENTER" style="-fx-padding: 10;">
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.librarymanagemensystem.controllers.SearchController" spacing="10" alignment="CENTER" style="-fx-padding: 10;">
     <HBox spacing="10">
         <TextField fx:id="searchTextField" promptText="Enter book title to search" HBox.hgrow="ALWAYS"/>
         <Button text="Search" onAction="#handleSearch"/>
     </HBox>
     <TableView fx:id="resultsTableView" VBox.vgrow="ALWAYS">
         <columns>
-            <TableColumn text="ID" fx:id="idColumn"/>
-            <TableColumn text="Title" fx:id="titleColumn"/>
-            <TableColumn text="Author" fx:id="authorColumn"/>
-            <TableColumn text="Is Issued" fx:id="isIssuedColumn"/>
+            <TableColumn text="ID" fx:id="id"/>
+            <TableColumn text="Title" fx:id="title"/>
+            <TableColumn text="Author" fx:id="author"/>
+            <TableColumn text="Is Issued" fx:id="isIssued"/>
         </columns>
     </TableView>
     <HBox spacing="10">

@@ -18,6 +18,8 @@ public class MainController {
     private Label welcomeText;
     @FXML
     private Button view_books_button;
+    @FXML
+    private Button manage_books_button;
 
     @FXML
     protected void onHelloButtonClick() {
@@ -25,8 +27,6 @@ public class MainController {
     }
     @FXML
     public void handleViewBookButton(ActionEvent event) throws IOException {
-//        Parent root = FXMLLoader.load(getClass().getResource("manage-books.fxml"));
-//        Parent root = FXMLLoader.load(getClass().getResource("manage-books.fxml"));
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("manage-books2.fxml"));
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(fxmlLoader.load());
@@ -34,10 +34,20 @@ public class MainController {
         stage.setTitle("Books");
         stage.setScene(scene);
         stage.show();
-//        stage.show();
-//        stage.setTitle("Books");
-//        stage.setScene(new Scene(root));
-//        stage.show();
+
     }
+    @FXML
+    public void handleManagePatronsButton(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("manage-patrons.fxml"));
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(fxmlLoader.load());
+//        stage.setScene(new Scene(root));
+        stage.setTitle("Patrons");
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+
 
 }

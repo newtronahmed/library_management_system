@@ -5,13 +5,14 @@ import com.example.librarymanagemensystem.models.Patron;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 
 public class PatronDAO {
 //    DatabaseConnection dbc = new DatabaseConnection();
     
     // CRUD Operations for Patron
-    public void addPatron(Patron Patron) {
+    public static void addPatron(Patron Patron) {
         String sql = "INSERT INTO Patrons (name, email) VALUES (?, ?)";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, Patron.getName());
@@ -20,6 +21,54 @@ public class PatronDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public static boolean addPatrons (Queue<Patron> pendingPatrons){
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        boolean success = false;
+
+        try {
+//            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            conn = DatabaseConnection.getConnection();
+            conn.setAutoCommit(false); // Start transaction
+
+            while (!pendingPatrons.isEmpty()) {
+                Patron Patron = pendingPatrons.poll(); // Remove from the front of the queue
+                String sql = "INSERT INTO Patrons (name, email, membershipDate) VALUES (?, ?, ?)";
+                stmt = conn.prepareStatement(sql);
+                stmt.setString(1, Patron.getName());
+                stmt.setString(2, Patron.getEmail());
+                stmt.setDate(3, Patron.getMembershipDate());
+                stmt.executeUpdate();
+            }
+
+            conn.commit(); // Commit transaction if all inserts are successful
+            success = true;
+        } catch (SQLException e) {
+            System.err.println("Error saving Patrons: " + e.getMessage());
+            try {
+                if (conn != null) {
+                    conn.rollback(); // Rollback if any error occurs
+                }
+            } catch (SQLException rollbackEx) {
+                System.err.println("Error rolling back transaction: " + rollbackEx.getMessage());
+            }
+        } finally {
+            // Close resources
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (conn != null) {
+                    conn.setAutoCommit(true); // Reset auto-commit to true
+                    conn.close();
+                }
+            } catch (SQLException closeEx) {
+                System.err.println("Error closing resources: " + closeEx.getMessage());
+            }
+        }
+
+        return success;
     }
 
     public Patron getPatron(int id) {
@@ -36,7 +85,7 @@ public class PatronDAO {
         return null;
     }
 
-    public List<Patron> getAllPatrons() {
+    public static List<Patron> getAllPatrons() {
         List<Patron> Patrons = new ArrayList<>();
         String sql = "SELECT * FROM Patrons";
         try (Connection conn = DatabaseConnection.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {

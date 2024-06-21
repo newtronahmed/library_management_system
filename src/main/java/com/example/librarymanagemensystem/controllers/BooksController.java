@@ -1,8 +1,12 @@
 package com.example.librarymanagemensystem.controllers;
+import com.example.librarymanagemensystem.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -10,7 +14,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import com.example.librarymanagemensystem.models.Book;
 import com.example.librarymanagemensystem.db.BookDAO;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -119,8 +125,14 @@ public class BooksController {
 
     // Handle other button actions (Search, Return Book, etc.)
     @FXML
-    private void handleSearchButton(ActionEvent event) {
-
+    private void handleSearchButton(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("search.fxml"));
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(fxmlLoader.load());
+//        stage.setScene(new Scene(root));
+        stage.setTitle("Search");
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
