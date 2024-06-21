@@ -3,6 +3,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -70,6 +71,7 @@ public class BooksController {
 
         // Add the book to the TableView and Queue
         observableBooks.add(newBook);
+//        observableBooks.remove();
         bookQueue.add(newBook);
 
         // Clear form fields after adding
@@ -80,30 +82,56 @@ public class BooksController {
 
     @FXML
     private void handleSaveButton(ActionEvent event) {
-        saveBooksToDatabase();
+         saveBooksToDatabase();
     }
 
     // Add a method to save books to the database
+//    private void saveBooksToDatabase() {
+//        // Your database save logic here, iterating over bookQueue
+//        while (!bookQueue.isEmpty()) {
+//            Book book = bookQueue.poll();  // Retrieves and removes the head of the queue
+//            // Save each book to the database
+//            // Example:
+//            // database.saveBook(book);
+//            BookDAO.addBook(book);
+//            System.out.println("Saving book: " + book.getTitle() + " by " + book.getAuthor());
+//        }
+//    }
+    // Add a method to save books to the database
     private void saveBooksToDatabase() {
         // Your database save logic here, iterating over bookQueue
-        while (!bookQueue.isEmpty()) {
-            Book book = bookQueue.poll();  // Retrieves and removes the head of the queue
-            // Save each book to the database
+        if(bookQueue.isEmpty()){
+            return;
+        }
+//        while (!bookQueue.isEmpty()) {
+//            Book book = bookQueue.poll();  // Retrieves and removes the head of the queue
+            // Sa each book to the database
             // Example:
             // database.saveBook(book);
-            BookDAO.addBook(book);
-            System.out.println("Saving book: " + book.getTitle() + " by " + book.getAuthor());
-        }
+            if (BookDAO.addBooks(bookQueue)){
+                showErrorAlert("Success", "Successfully saved to DB");
+                tableView.refresh();
+                bookQueue.clear();
+            }
+
     }
+
 
     // Handle other button actions (Search, Return Book, etc.)
     @FXML
     private void handleSearchButton(ActionEvent event) {
-        // Implement search logic
+
     }
 
     @FXML
     private void handleReturnBookButton(ActionEvent event) {
         // Implement return book logic
+    }
+    private void showErrorAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

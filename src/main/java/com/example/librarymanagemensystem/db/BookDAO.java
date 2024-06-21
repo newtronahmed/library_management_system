@@ -4,6 +4,7 @@ import com.example.librarymanagemensystem.models.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 public class BookDAO {
     
@@ -19,6 +20,54 @@ public class BookDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public static boolean addBooks (Queue<Book> pendingBooks){
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        boolean success = false;
+
+        try {
+//            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            conn = DatabaseConnection.getConnection();
+            conn.setAutoCommit(false); // Start transaction
+
+            while (!pendingBooks.isEmpty()) {
+                Book book = pendingBooks.poll(); // Remove from the front of the queue
+                String sql = "INSERT INTO books (title, author, genre) VALUES (?, ?, ?)";
+                stmt = conn.prepareStatement(sql);
+                stmt.setString(1, book.getTitle());
+                stmt.setString(2, book.getAuthor());
+                stmt.setString(3, book.getGenre());
+                stmt.executeUpdate();
+            }
+
+            conn.commit(); // Commit transaction if all inserts are successful
+            success = true;
+        } catch (SQLException e) {
+            System.err.println("Error saving books: " + e.getMessage());
+            try {
+                if (conn != null) {
+                    conn.rollback(); // Rollback if any error occurs
+                }
+            } catch (SQLException rollbackEx) {
+                System.err.println("Error rolling back transaction: " + rollbackEx.getMessage());
+            }
+        } finally {
+            // Close resources
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (conn != null) {
+                    conn.setAutoCommit(true); // Reset auto-commit to true
+                    conn.close();
+                }
+            } catch (SQLException closeEx) {
+                System.err.println("Error closing resources: " + closeEx.getMessage());
+            }
+        }
+
+        return success;
     }
 
     public static Book getBook(int id) {
