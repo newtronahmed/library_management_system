@@ -22,17 +22,21 @@ public class SearchController {
     @FXML private TableColumn<Book, Integer> id;
     @FXML private TableColumn<Book, String> title;
     @FXML private TableColumn<Book, String> author;
+    @FXML private TableColumn<Book, String> genre;
+
     @FXML private TableColumn<Book, Boolean> isIssued;
 
 //    private BookDAO bookDAO = new BookDAO();
-    private Stack<Book> searchHistory = new Stack<>();
-    private Stack<Book> navigationHistory = new Stack<>();
+    private Stack<String> searchHistory = new Stack<>();
+    private Stack<String> navigationHistory = new Stack<>();
 
     @FXML
     public void initialize() {
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         title.setCellValueFactory(new PropertyValueFactory<>("title"));
         author.setCellValueFactory(new PropertyValueFactory<>("author"));
+        author.setCellValueFactory(new PropertyValueFactory<>("genre"));
+
         isIssued.setCellValueFactory(new PropertyValueFactory<>("isIssued"));
 //        List<Book> books = BookDAO.getAllBooks();
 //        observableBooks = FXCollections.observableArrayList(books);
@@ -43,37 +47,46 @@ public class SearchController {
     @FXML
     public void handleSearch() {
         String title = searchTextField.getText();
+        List<Book> results = searchDB(title);
+//        results.forEach(searchHistory::push);
+        searchHistory.push(title);
+        resultsTableView.getItems().setAll(results);
+    }
+    public List<Book> searchDB(String title){
         List<Book> results = BookDAO.getAllBooksWithIssued().stream()
                 .filter(book -> book.getTitle().toLowerCase().contains(title.toLowerCase()))
                 .collect(Collectors.toList());
-        results.forEach(searchHistory::push);
-        resultsTableView.getItems().setAll(results);
+        return results;
     }
 
     @FXML
     public void handleNextSearch() {
         if (!searchHistory.isEmpty()) {
-            Book nextBook = searchHistory.pop();
-            navigationHistory.push(nextBook);
-            resultsTableView.getItems().setAll(nextBook);
+
+            String nextSearchTerm = searchHistory.pop();
+//            if (nextSearchTerm == ti)
+            navigationHistory.push(nextSearchTerm);
+            List<Book> results = searchDB(nextSearchTerm);
+            resultsTableView.getItems().setAll(results);
         }
     }
 
     @FXML
     public void handlePreviousSearch() {
         if (!navigationHistory.isEmpty()) {
-            Book previousBook = navigationHistory.pop();
-            searchHistory.push(previousBook);
-            resultsTableView.getItems().setAll(previousBook);
+            String previousTerm = navigationHistory.pop();
+            searchHistory.push(previousTerm);
+            List<Book> results = searchDB(previousTerm);
+            resultsTableView.getItems().setAll(results);
         }
     }
-
-    @FXML
-    public void handleMostRecentSearch() {
-        if (!searchHistory.isEmpty()) {
-            resultsTableView.getItems().setAll(searchHistory.peek());
-        }
-    }
+//
+//    @FXML
+//    public void handleMostRecentSearch() {
+//        if (!searchHistory.isEmpty()) {
+//            resultsTableView.getItems().setAll(searchHistory.peek());
+//        }
+//    }
 
     @FXML
     public void handleClearHistory() {

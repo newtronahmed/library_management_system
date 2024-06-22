@@ -13,13 +13,15 @@
             <TableColumn text="ID" fx:id="id"/>
             <TableColumn text="Title" fx:id="title"/>
             <TableColumn text="Author" fx:id="author"/>
+            <TableColumn text="Author" fx:id="genre"/>
+
             <TableColumn text="Is Issued" fx:id="isIssued"/>
         </columns>
     </TableView>
     <HBox spacing="10">
         <Button text="Previous Search" onAction="#handlePreviousSearch"/>
         <Button text="Next Search" onAction="#handleNextSearch"/>
-        <Button text="Most Recent Search" onAction="#handleMostRecentSearch"/>
+<!--        <Button text="Most Recent Search" onAction="#handleMostRecentSearch"/>-->
         <Button text="Clear Search History" onAction="#handleClearHistory"/>
     </HBox>
 </VBox>
