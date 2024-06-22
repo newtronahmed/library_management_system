@@ -7,6 +7,7 @@ import com.example.librarymanagemensystem.models.Book;
 import com.example.librarymanagemensystem.models.Patron;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.stream.Collectors;
 
-public class IssueBookController {
+public class IssueBookController extends BaseController {
 
     @FXML private ComboBox<Book> bookComboBox;
     @FXML private ComboBox<Patron> patronComboBox;
@@ -33,11 +34,18 @@ public class IssueBookController {
 
     @FXML
     private void initialize() {
+//        System.out.println();
         bookComboBox.setItems(books);
         patronComboBox.setItems(patrons);
         pendingIssuesListView.setItems(pendingIssues);
+        List<Book> allBooks = bookDAO.getAllBooksWithIssued();
+        ObservableList<Book> observableBooks = FXCollections.observableArrayList(allBooks);
+        FilteredList<Book>availableBooks = new FilteredList<>(observableBooks, book -> !book.getIsIssued());
+        System.out.println("Available Books:" );
 
-        books.addAll(bookDAO.getAllBooksWithIssued());
+        availableBooks.forEach(book -> System.out.println(book.getDetails()));
+
+        books.addAll(availableBooks);
         patrons.addAll(patronDAO.getAllPatrons());
 
         addToQueueButton.setDisable(true);

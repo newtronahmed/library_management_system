@@ -76,7 +76,7 @@ public class Book {
 //        this.publishedYear = publishedYear;
 //    }
     public Boolean getIsIssued(){
-        return this.isIssued;
+        return isIssued;
     }
     public void setIsIssued(Boolean isIssued){
         this.isIssued = isIssued;
@@ -84,6 +84,10 @@ public class Book {
     @Override
     public String toString() {
         return title + " by " + author;
+    }
+    public String getDetails() {
+        return String.format("ID: %d, Title: %s, Author: %s, IsIssued: %b",
+                getId(), getTitle(), getAuthor(), getIsIssued());
     }
     public int getTransactionCount (){
         return transactionCount;

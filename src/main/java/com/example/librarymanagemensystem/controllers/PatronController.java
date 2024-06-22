@@ -24,7 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class PatronController {
+public class PatronController extends  BaseController{
     @FXML
     private TableView<Patron> tableView;
 
@@ -133,7 +133,10 @@ public class PatronController {
         }
 
     }
-
+//    @FXML
+//    private void gotomainpage() throws IOException {
+//        mainController.loadMainView(stage);
+//    }
 
     // Handle other button actions (Search, Return Patron, etc.)
     @FXML

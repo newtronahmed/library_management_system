@@ -10,13 +10,15 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
-public class SearchController {
+public class SearchController extends BaseController {
     @FXML private TextField searchTextField;
     @FXML private TableView<Book> resultsTableView;
     @FXML private TableColumn<Book, Integer> id;
@@ -25,10 +27,13 @@ public class SearchController {
     @FXML private TableColumn<Book, String> genre;
 
     @FXML private TableColumn<Book, Boolean> isIssued;
+
+
     private BookDAO bookDAO = new BookDAO();
     private Stack<String> searchHistory = new Stack<>();
     private String currentSearchTerm = "";
     @FXML
+
 
     public void initialize () {
         id.setCellValueFactory(new PropertyValueFactory<>("id"));

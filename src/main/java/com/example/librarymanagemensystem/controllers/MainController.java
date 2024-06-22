@@ -48,7 +48,11 @@ public class MainController {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("manage-patrons.fxml"));
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(fxmlLoader.load());
-//        stage.setScene(new Scene(root));
+//        stage.setScene(new Scene(root))
+//        ;
+        PatronController patronController = fxmlLoader.getController();
+        patronController.setMainController(this);
+        patronController.setStage(stage);
         stage.setTitle("Patrons");
         stage.setScene(scene);
         stage.show();
@@ -58,6 +62,9 @@ public class MainController {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("issue-book.fxml"));
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(fxmlLoader.load());
+        IssueBookController issueController = fxmlLoader.getController();
+        issueController.setMainController(this);
+        issueController.setStage(stage);
 //        stage.setScene(new Scene(root));
         stage.setTitle("Issue Books");
         stage.setScene(scene);
