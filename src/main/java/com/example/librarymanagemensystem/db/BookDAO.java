@@ -96,6 +96,33 @@ public class BookDAO {
         }
         return books;
     }
+    public static List<Book> getAllBooksWithIssued(){
+        List<Book> books = new ArrayList<>();
+        String query = "SELECT b.id, b.title, b.author, b.genre, " +
+                "CASE WHEN t.bookID IS NULL THEN 0 " +
+                "ELSE 1 END AS isIssued " +
+                "FROM Books b " +
+                "LEFT JOIN Transactions t ON b.id = t.bookID AND t.ReturnDate IS NULL";
+
+//        try (Connection conn = DriverManager.getConnection(url, username, password);
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+
+//                System.out.println("Book ID: " + bookId + ", Title: " + title + ", Author: " + author + ", Status: " + isIssued);
+                books.add(new Book(rs.getInt("id"), rs.getString("title"), rs.getString("author"),rs.getString("genre"), rs.getBoolean("isIssued")));
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return books;
+
+    }
 
     public static void updateBook(Book book) {
         String sql = "UPDATE books SET title = ?, author = ?, isIssued = ? WHERE id = ?";

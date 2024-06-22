@@ -37,6 +37,8 @@ public class BooksController {
     @FXML
     private TableColumn<Book, String> genre;
     @FXML
+    private TableColumn<Book, String> isIssued;
+    @FXML
     private TextField searchField;
     @FXML
     private TextField titleField;
@@ -46,16 +48,15 @@ public class BooksController {
     private TextField genreField;
     private Queue<Book> bookQueue;
     private ObservableList<Book> observableBooks;
-
     @FXML
     public void initialize() {
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         title.setCellValueFactory(new PropertyValueFactory<>("title"));
         author.setCellValueFactory(new PropertyValueFactory<>("author"));
         genre.setCellValueFactory(new PropertyValueFactory<>("genre"));
-//        genre.setCellValueFactory(new PropertyValueFactory<>("isIssued"));
+        isIssued.setCellValueFactory(new PropertyValueFactory<>("isIssued"));
 
-        List<Book> books = BookDAO.getAllBooks();
+        List<Book> books = BookDAO.getAllBooksWithIssued();
         observableBooks = FXCollections.observableArrayList(books);
         bookQueue = new LinkedList<>();
         tableView.setItems(observableBooks);

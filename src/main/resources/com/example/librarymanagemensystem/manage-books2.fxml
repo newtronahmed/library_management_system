@@ -24,6 +24,8 @@
                 <TableColumn prefWidth="200.0" text="Title" fx:id="title" />
                 <TableColumn prefWidth="150.0" text="Author" fx:id="author" />
                 <TableColumn prefWidth="150.0" text="Genre" fx:id="genre" />
+                <TableColumn prefWidth="150.0" text="Is Issued" fx:id="isIssued" />
+
             </columns>
         </TableView>
     </center>

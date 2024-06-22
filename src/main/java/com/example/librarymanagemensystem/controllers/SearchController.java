@@ -43,7 +43,7 @@ public class SearchController {
     @FXML
     public void handleSearch() {
         String title = searchTextField.getText();
-        List<Book> results = BookDAO.getAllBooks().stream()
+        List<Book> results = BookDAO.getAllBooksWithIssued().stream()
                 .filter(book -> book.getTitle().toLowerCase().contains(title.toLowerCase()))
                 .collect(Collectors.toList());
         results.forEach(searchHistory::push);
