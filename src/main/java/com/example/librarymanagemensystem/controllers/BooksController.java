@@ -21,7 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class BooksController {
+public class BooksController{
     @FXML
     private TableView<Book> tableView;
 
@@ -39,6 +39,8 @@ public class BooksController {
     @FXML
     private TableColumn<Book, String> isIssued;
     @FXML
+    private TableColumn<Book, Integer> transactionCount;
+    @FXML
     private TextField searchField;
     @FXML
     private TextField titleField;
@@ -48,6 +50,7 @@ public class BooksController {
     private TextField genreField;
     private Queue<Book> bookQueue;
     private ObservableList<Book> observableBooks;
+    private BookDAO bookDAO = new BookDAO();
     @FXML
     public void initialize() {
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -55,8 +58,10 @@ public class BooksController {
         author.setCellValueFactory(new PropertyValueFactory<>("author"));
         genre.setCellValueFactory(new PropertyValueFactory<>("genre"));
         isIssued.setCellValueFactory(new PropertyValueFactory<>("isIssued"));
+        transactionCount.setCellValueFactory(new PropertyValueFactory<>("transactionCount"));
 
-        List<Book> books = BookDAO.getAllBooksWithIssued();
+
+        List<Book> books = bookDAO.getAllBooksWithIssued();
         observableBooks = FXCollections.observableArrayList(books);
         bookQueue = new LinkedList<>();
         tableView.setItems(observableBooks);
@@ -93,30 +98,12 @@ public class BooksController {
          saveBooksToDatabase();
     }
 
-    // Add a method to save books to the database
-//    private void saveBooksToDatabase() {
-//        // Your database save logic here, iterating over bookQueue
-//        while (!bookQueue.isEmpty()) {
-//            Book book = bookQueue.poll();  // Retrieves and removes the head of the queue
-//            // Save each book to the database
-//            // Example:
-//            // database.saveBook(book);
-//            BookDAO.addBook(book);
-//            System.out.println("Saving book: " + book.getTitle() + " by " + book.getAuthor());
-//        }
-//    }
-    // Add a method to save books to the database
+    // method to save books to the database
     private void saveBooksToDatabase() {
-        // Your database save logic here, iterating over bookQueue
         if(bookQueue.isEmpty()){
             return;
         }
-//        while (!bookQueue.isEmpty()) {
-//            Book book = bookQueue.poll();  // Retrieves and removes the head of the queue
-            // Sa each book to the database
-            // Example:
-            // database.saveBook(book);
-            if (BookDAO.addBooks(bookQueue)){
+            if (bookDAO.addBooks(bookQueue)){
                 showErrorAlert("Success", "Successfully saved to DB");
                 tableView.refresh();
                 bookQueue.clear();

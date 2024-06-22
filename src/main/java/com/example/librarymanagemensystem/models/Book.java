@@ -8,6 +8,7 @@ public class Book {
     private String genre;
 //    private int publishedYear;
     private Boolean isIssued;
+    private int transactionCount;
 
     public Book (String title, String author, String genre){
         this.title = title;
@@ -20,8 +21,15 @@ public class Book {
         this.title = title;
         this.author = author;
         this.genre = genre;
-
         this.isIssued = isIssued;
+    }
+    public Book(int id, String title, String author, String genre, boolean isIssued, int transactionCount) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.genre = genre;
+        this.isIssued = isIssued;
+        this.transactionCount = transactionCount;
     }
 
 //    public Book(int id, String title, String author, boolean isIssued) {
@@ -72,6 +80,12 @@ public class Book {
     }
     public void setIsIssued(Boolean isIssued){
         this.isIssued = isIssued;
+    }
+    public int getTransactionCount (){
+        return transactionCount;
+    }
+    public int setTransactionCount (int val){
+        return this.transactionCount = val;
     }
 
 }

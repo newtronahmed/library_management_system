@@ -25,74 +25,71 @@ public class SearchController {
     @FXML private TableColumn<Book, String> genre;
 
     @FXML private TableColumn<Book, Boolean> isIssued;
-
-//    private BookDAO bookDAO = new BookDAO();
+    private BookDAO bookDAO = new BookDAO();
     private Stack<String> searchHistory = new Stack<>();
-    private Stack<String> navigationHistory = new Stack<>();
-
+    private String currentSearchTerm = "";
     @FXML
-    public void initialize() {
+
+    public void initialize () {
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         title.setCellValueFactory(new PropertyValueFactory<>("title"));
         author.setCellValueFactory(new PropertyValueFactory<>("author"));
         author.setCellValueFactory(new PropertyValueFactory<>("genre"));
-
         isIssued.setCellValueFactory(new PropertyValueFactory<>("isIssued"));
-//        List<Book> books = BookDAO.getAllBooks();
-//        observableBooks = FXCollections.observableArrayList(books);
-//        bookQueue = new LinkedList<>();
-//        tableView.setItems(observableBooks);
     }
-
     @FXML
     public void handleSearch() {
         String title = searchTextField.getText();
-        List<Book> results = searchDB(title);
-//        results.forEach(searchHistory::push);
-        searchHistory.push(title);
-        resultsTableView.getItems().setAll(results);
-    }
-    public List<Book> searchDB(String title){
-        List<Book> results = BookDAO.getAllBooksWithIssued().stream()
-                .filter(book -> book.getTitle().toLowerCase().contains(title.toLowerCase()))
-                .collect(Collectors.toList());
-        return results;
+        if (!title.equals(currentSearchTerm)) {
+            if (!currentSearchTerm.isEmpty()) {
+                searchHistory.push(currentSearchTerm);
+            }
+            currentSearchTerm = title;
+            List<Book> results = searchDB(title);
+            resultsTableView.getItems().setAll(results);
+        }
     }
 
     @FXML
     public void handleNextSearch() {
         if (!searchHistory.isEmpty()) {
-
             String nextSearchTerm = searchHistory.pop();
-//            if (nextSearchTerm == ti)
-            navigationHistory.push(nextSearchTerm);
+            if (!currentSearchTerm.isEmpty()) {
+                searchHistory.push(currentSearchTerm);
+            }
+            currentSearchTerm = nextSearchTerm;
             List<Book> results = searchDB(nextSearchTerm);
             resultsTableView.getItems().setAll(results);
+            searchTextField.setText(nextSearchTerm);
         }
     }
 
     @FXML
     public void handlePreviousSearch() {
-        if (!navigationHistory.isEmpty()) {
-            String previousTerm = navigationHistory.pop();
-            searchHistory.push(previousTerm);
+        if (!searchHistory.isEmpty()) {
+            String previousTerm = searchHistory.pop();
+            if (!currentSearchTerm.isEmpty()) {
+                searchHistory.push(currentSearchTerm);
+            }
+            currentSearchTerm = previousTerm;
             List<Book> results = searchDB(previousTerm);
             resultsTableView.getItems().setAll(results);
+            searchTextField.setText(previousTerm);
         }
     }
-//
-//    @FXML
-//    public void handleMostRecentSearch() {
-//        if (!searchHistory.isEmpty()) {
-//            resultsTableView.getItems().setAll(searchHistory.peek());
-//        }
-//    }
 
     @FXML
     public void handleClearHistory() {
         searchHistory.clear();
-        navigationHistory.clear();
+        currentSearchTerm = "";
         resultsTableView.getItems().clear();
+        searchTextField.clear();
+    }
+    public List<Book> searchDB(String title){
+        return bookDAO.getAllBooksWithIssued().stream()
+                .filter(book -> book.getTitle().toLowerCase().contains(title.toLowerCase()))
+                .collect(Collectors.toList());
+
     }
 }
 
