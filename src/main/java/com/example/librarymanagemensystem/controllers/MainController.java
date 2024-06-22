@@ -27,13 +27,16 @@ public class MainController {
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
-    @FXML
+
 
     @FXML
     public void handleViewBookButton(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("manage-books2.fxml"));
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(fxmlLoader.load());
+        BooksController booksController = fxmlLoader.getController();
+        booksController.setMainController(this);
+        booksController.setStage(stage);
 //        stage.setScene(new Scene(root));
         stage.setTitle("Books");
         stage.setScene(scene);
@@ -61,6 +64,7 @@ public class MainController {
         stage.show();
 
     }
+
     public void loadMainView(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());

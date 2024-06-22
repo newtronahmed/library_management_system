@@ -51,6 +51,11 @@ public class BooksController extends BaseController{
     private Queue<Book> bookQueue;
     private ObservableList<Book> observableBooks;
     private BookDAO bookDAO = new BookDAO();
+    private Stage stage;
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
     @FXML
     public void initialize() {
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -66,9 +71,10 @@ public class BooksController extends BaseController{
         bookQueue = new LinkedList<>();
         tableView.setItems(observableBooks);
     }
+
     @FXML
-    private void gotomainpage(ActionEvent event) {
-        mainController.loadMainView();
+    private void gotomainpage(ActionEvent event) throws IOException {
+        mainController.loadMainView(stage);
     }
     @FXML
     private void handleAddBookButton(ActionEvent event) {
