@@ -85,7 +85,7 @@ public class PatronDAO {
         return null;
     }
 
-    public static List<Patron> getAllPatrons() {
+    public  List<Patron> getAllPatrons() {
         List<Patron> Patrons = new ArrayList<>();
         String sql = "SELECT * FROM Patrons";
         try (Connection conn = DatabaseConnection.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {

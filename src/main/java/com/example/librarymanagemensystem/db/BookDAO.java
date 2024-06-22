@@ -84,7 +84,7 @@ public class BookDAO {
         return null;
     }
 
-    public static List<Book> getAllBooks() {
+    public List<Book> getAllBooks() {
         List<Book> books = new ArrayList<>();
         String sql = "SELECT * FROM books";
         try (Connection conn = DatabaseConnection.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {

@@ -3,12 +3,32 @@ package com.example.librarymanagemensystem.db;
 import com.example.librarymanagemensystem.models.Transaction;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionDAO {
 
+    public boolean issueBook(int patronId, int bookId) {
+        LocalDate issueDate = LocalDate.now(); // Current date as issue date
+        String sql = "INSERT INTO transactions (bookId, PatronId, issueDate, returnDate) VALUES (?, ?, ?, ?)";
 
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, patronId);
+            pstmt.setInt(2, bookId);
+            pstmt.setDate(3, java.sql.Date.valueOf(issueDate));
+
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                return true; // Issue successful
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false; // Issue failed
+    }
 
     // CRUD Operations for Transaction
     public void addTransaction(Transaction transaction) {

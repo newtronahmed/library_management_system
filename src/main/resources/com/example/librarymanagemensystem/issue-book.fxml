@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.librarymanagemensystem.IssueBookController" spacing="10" alignment="CENTER" style="-fx-padding: 10;">
+
+    <Label text="Select a Book:"/>
+    <ComboBox fx:id="bookComboBox" promptText="Select Book" />
+
+    <Label text="Select a Patron:"/>
+    <ComboBox fx:id="patronComboBox" promptText="Select Patron" />
+
+    <Button text="Issue Book" onAction="#handleIssueBook"/>
+
+</VBox>
