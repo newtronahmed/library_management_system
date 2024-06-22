@@ -104,28 +104,11 @@ public class PatronController extends  BaseController{
     }
 
     // Add a method to save Patron to the database
-//    private void savePatronToDatabase() {
-//        // Your database save logic here, iterating over PatronQueue
-//        while (!PatronQueue.isEmpty()) {
-//            Patron Patron = PatronQueue.poll();  // Retrieves and removes the head of the queue
-//            // Save each Patron to the database
-//            // Example:
-//            // database.savePatron(Patron);
-//            PatronDAO.addPatron(Patron);
-//            System.out.println("Saving Patron: " + Patron.getname() + " by " + Patron.getemail());
-//        }
-//    }
-    // Add a method to save Patron to the database
     private void savePatronToDatabase() {
         // Your database save logic here, iterating over PatronQueue
         if(PatronQueue.isEmpty()){
             return;
         }
-//        while (!PatronQueue.isEmpty()) {
-//            Patron Patron = PatronQueue.poll();  // Retrieves and removes the head of the queue
-        // Sa each Patron to the database
-        // Example:
-        // database.savePatron(Patron);
         if (PatronDAO.addPatrons(PatronQueue)){
             showErrorAlert("Success", "Successfully saved to DB");
             tableView.refresh();
@@ -133,10 +116,6 @@ public class PatronController extends  BaseController{
         }
 
     }
-//    @FXML
-//    private void gotomainpage() throws IOException {
-//        mainController.loadMainView(stage);
-//    }
 
     // Handle other button actions (Search, Return Patron, etc.)
     @FXML
@@ -145,6 +124,9 @@ public class PatronController extends  BaseController{
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(fxmlLoader.load());
 //        stage.setScene(new Scene(root));
+        SearchController searchController = fxmlLoader.getController();
+        searchController.setMainController(this.mainController);
+        searchController.setStage(stage);
         stage.setTitle("Search");
         stage.setScene(scene);
         stage.show();

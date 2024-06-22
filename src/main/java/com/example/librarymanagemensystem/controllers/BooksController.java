@@ -51,11 +51,7 @@ public class BooksController extends BaseController{
     private Queue<Book> bookQueue;
     private ObservableList<Book> observableBooks;
     private BookDAO bookDAO = new BookDAO();
-//    private Stage stage;
-//
-//    public void setStage(Stage stage) {
-//        this.stage = stage;
-//    }
+
     @FXML
     public void initialize() {
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -72,10 +68,7 @@ public class BooksController extends BaseController{
         tableView.setItems(observableBooks);
     }
 
-//    @FXML
-//    private void gotomainpage(ActionEvent event) throws IOException {
-//        mainController.loadMainView(stage);
-//    }
+
     @FXML
     private void handleAddBookButton(ActionEvent event) {
         String title = titleField.getText();
@@ -96,11 +89,8 @@ public class BooksController extends BaseController{
         observableBooks.add(newBook);
 //        observableBooks.remove();
         bookQueue.add(newBook);
+        resetFields();
 
-        // Clear form fields after adding
-        titleField.clear();
-        authorField.clear();
-        genreField.clear();
     }
 
     @FXML
@@ -128,10 +118,19 @@ public class BooksController extends BaseController{
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("search.fxml"));
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(fxmlLoader.load());
+        SearchController searchController = fxmlLoader.getController();
+        searchController.setMainController(this.mainController);
+        searchController.setStage(stage);
 //        stage.setScene(new Scene(root));
         stage.setTitle("Search");
         stage.setScene(scene);
         stage.show();
+    }
+    private void resetFields(){
+        // Clear form fields after adding
+        titleField.clear();
+        authorField.clear();
+        genreField.clear();
     }
 
     @FXML

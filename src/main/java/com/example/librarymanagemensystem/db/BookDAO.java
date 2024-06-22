@@ -100,7 +100,10 @@ public class BookDAO {
         List<Book> books = new ArrayList<>();
         String query = "SELECT b.id, b.title, b.author, b.genre, " +
                 "COUNT(t.id) AS transactionCount, " +
-                "CASE WHEN MAX(t.ReturnDate) IS NULL THEN 1 ELSE 0 END AS isIssued " +
+                "CASE WHEN EXISTS (" +
+                "    SELECT 1 FROM Transactions t2 " +
+                "    WHERE t2.bookID = b.id AND t2.ReturnDate IS NULL" +
+                ") THEN 1 ELSE 0 END AS isIssued " +
                 "FROM Books b " +
                 "LEFT JOIN Transactions t ON b.id = t.bookID " +
                 "GROUP BY b.id, b.title, b.author, b.genre " +

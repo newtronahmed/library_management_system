@@ -17,7 +17,6 @@
    <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="184.0" text="Return Book" />
 
     <Label fx:id="welcomeText" />
-    <Button onAction="#onHelloButtonClick" text="Hello" />
    <HBox prefHeight="100.0" prefWidth="200.0" />
    <Pane prefHeight="200.0" prefWidth="200.0" />
 </VBox>
