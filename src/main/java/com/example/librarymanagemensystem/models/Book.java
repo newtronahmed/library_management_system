@@ -81,6 +81,10 @@ public class Book {
     public void setIsIssued(Boolean isIssued){
         this.isIssued = isIssued;
     }
+    @Override
+    public String toString() {
+        return title + " by " + author;
+    }
     public int getTransactionCount (){
         return transactionCount;
     }

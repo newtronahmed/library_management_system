@@ -1,11 +1,13 @@
 package com.example.librarymanagemensystem.db;
 
+import com.example.librarymanagemensystem.models.Book;
 import com.example.librarymanagemensystem.models.Transaction;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 public class TransactionDAO {
 
@@ -29,6 +31,26 @@ public class TransactionDAO {
 
         return false; // Issue failed
     }
+        public boolean addTransactions(List<Integer> bookIds, int patronId) {
+            String query = "INSERT INTO Transactions (bookID, patronID, IssueDate) VALUES (?, ?, ?)";
+            try (Connection conn = DatabaseConnection.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(query)) {
+                conn.setAutoCommit(false);
+                for (int bookId : bookIds) {
+                    pstmt.setInt(1, bookId);
+                    pstmt.setInt(2, patronId);
+                    pstmt.setDate(3, java.sql.Date.valueOf(LocalDate.now()));
+                    pstmt.addBatch();
+                }
+                int[] results = pstmt.executeBatch();
+                conn.commit();
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
 
     // CRUD Operations for Transaction
     public void addTransaction(Transaction transaction) {

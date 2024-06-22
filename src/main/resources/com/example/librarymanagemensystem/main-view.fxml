@@ -13,7 +13,7 @@
     </padding>
    <Button fx:id="view_books_button" mnemonicParsing="false" onAction="#handleViewBookButton" prefHeight="48.0" prefWidth="182.0" text="Manage Books" />
     <Button fx:id="manage_books_button" mnemonicParsing="false" prefHeight="48.0" onAction="#handleManagePatronsButton" prefWidth="171.0" text="Manage Patrons" />
-    <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="179.0" text="Issue Book" />
+    <Button mnemonicParsing="false" fx:id="issue_book_button" onAction="#handleIssueBookButton" prefHeight="40.0" prefWidth="179.0" text="Issue Book" />
    <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="184.0" text="Return Book" />
 
     <Label fx:id="welcomeText" />

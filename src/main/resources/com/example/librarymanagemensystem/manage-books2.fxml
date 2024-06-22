@@ -13,7 +13,7 @@
         <HBox spacing="10.0" style="-fx-padding: 10px;">
 <!--            <TextField fx:id="searchField" promptText="Search..." />-->
             <Button text="Go to search page" onAction="#handleSearchButton" />
-<!--            <Button text="Add Book" onAction="#handleAddBookButton" />-->
+            <Button text="Go to main page" onAction="#gotomainpage" />
 <!--            <Button text="Return Book" onAction="#handleReturnBookButton" />-->
         </HBox>
     </top>

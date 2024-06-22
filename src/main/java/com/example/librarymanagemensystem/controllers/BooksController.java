@@ -21,7 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class BooksController{
+public class BooksController extends BaseController{
     @FXML
     private TableView<Book> tableView;
 
@@ -65,6 +65,10 @@ public class BooksController{
         observableBooks = FXCollections.observableArrayList(books);
         bookQueue = new LinkedList<>();
         tableView.setItems(observableBooks);
+    }
+    @FXML
+    private void gotomainpage(ActionEvent event) {
+        mainController.loadMainView();
     }
     @FXML
     private void handleAddBookButton(ActionEvent event) {

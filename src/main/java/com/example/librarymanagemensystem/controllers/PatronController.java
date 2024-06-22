@@ -49,6 +49,7 @@ public class PatronController {
     private DatePicker membershipDatePicker;
     private Queue<Patron> PatronQueue;
     private ObservableList<Patron> observablePatron;
+    private PatronDAO patronDAO = new PatronDAO();
 
     @FXML
     public void initialize() {
@@ -57,7 +58,7 @@ public class PatronController {
         email.setCellValueFactory(new PropertyValueFactory<>("email"));
         membershipDate.setCellValueFactory(new PropertyValueFactory<>("membershipDate"));
 
-        List<Patron> Patron = PatronDAO.getAllPatrons();
+        List<Patron> Patron = patronDAO.getAllPatrons();
         observablePatron = FXCollections.observableArrayList(Patron);
         PatronQueue = new LinkedList<>();
         tableView.setItems(observablePatron);

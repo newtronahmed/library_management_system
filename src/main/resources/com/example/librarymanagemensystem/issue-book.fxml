@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.librarymanagemensystem.IssueBookController" spacing="10" alignment="CENTER" style="-fx-padding: 10;">
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.librarymanagemensystem.controllers.IssueBookController" spacing="10" alignment="CENTER" style="-fx-padding: 10;">
 
     <Label text="Select a Book:"/>
     <ComboBox fx:id="bookComboBox" promptText="Select Book" />
@@ -11,6 +11,10 @@
     <Label text="Select a Patron:"/>
     <ComboBox fx:id="patronComboBox" promptText="Select Patron" />
 
-    <Button text="Issue Book" onAction="#handleIssueBook"/>
+<!--    <Button text="Issue Book" onAction="#handleIssueBook"/>-->
+    <Button fx:id="addToQueueButton" text="Add to Queue" onAction="#handleAddToQueue"/>
+    <ListView fx:id="pendingIssuesListView"/>
+    <Button fx:id="saveTransactionsButton" text="Save Transactions" onAction="#handleSaveTransactions"/>
+    <Button fx:id="go_to_main_menu" text="Go to main menu" onAction="#gotomainmenu"/>
 
 </VBox>

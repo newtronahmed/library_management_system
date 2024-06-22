@@ -53,5 +53,10 @@ public class Patron {
     public void setMembershipDate(Date membershipDate) {
         this.membershipDate = membershipDate;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
 
