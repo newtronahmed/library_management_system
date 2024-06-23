@@ -1,8 +1,8 @@
 package com.example.librarymanagemensystem.controllers;
 
-import com.example.librarymanagemensystem.db.BookDAO;
-import com.example.librarymanagemensystem.db.PatronDAO;
-import com.example.librarymanagemensystem.db.TransactionDAO;
+import com.example.librarymanagemensystem.DAO.BookDAO;
+import com.example.librarymanagemensystem.DAO.PatronDAO;
+import com.example.librarymanagemensystem.DAO.TransactionDAO;
 import com.example.librarymanagemensystem.models.Book;
 import com.example.librarymanagemensystem.models.Patron;
 import javafx.collections.FXCollections;
@@ -12,9 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.stream.Collectors;
 
 public class IssueBookController extends BaseController {
@@ -34,7 +32,6 @@ public class IssueBookController extends BaseController {
 
     @FXML
     private void initialize() {
-//        System.out.println();
         bookComboBox.setItems(books);
         patronComboBox.setItems(patrons);
         pendingIssuesListView.setItems(pendingIssues);

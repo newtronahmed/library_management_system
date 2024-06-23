@@ -13,7 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import com.example.librarymanagemensystem.models.Book;
-import com.example.librarymanagemensystem.db.BookDAO;
+import com.example.librarymanagemensystem.DAO.BookDAO;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -21,7 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class BooksController extends BaseController{
+public class BooksController extends BaseController {
     @FXML
     private TableView<Book> tableView;
 
@@ -54,20 +54,12 @@ public class BooksController extends BaseController{
 
     @FXML
     public void initialize() {
-        id.setCellValueFactory(new PropertyValueFactory<>("id"));
-        title.setCellValueFactory(new PropertyValueFactory<>("title"));
-        author.setCellValueFactory(new PropertyValueFactory<>("author"));
-        genre.setCellValueFactory(new PropertyValueFactory<>("genre"));
-        isIssued.setCellValueFactory(new PropertyValueFactory<>("isIssued"));
-        transactionCount.setCellValueFactory(new PropertyValueFactory<>("transactionCount"));
-
-
+        initializeTable();
         List<Book> books = bookDAO.getAllBooksWithIssued();
         observableBooks = FXCollections.observableArrayList(books);
         bookQueue = new LinkedList<>();
         tableView.setItems(observableBooks);
     }
-
 
     @FXML
     private void handleAddBookButton(ActionEvent event) {
@@ -112,20 +104,7 @@ public class BooksController extends BaseController{
     }
 
 
-    // Handle other button actions (Search, Return Book, etc.)
-    @FXML
-    private void handleSearchButton(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("search.fxml"));
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(fxmlLoader.load());
-        SearchController searchController = fxmlLoader.getController();
-        searchController.setMainController(this.mainController);
-        searchController.setStage(stage);
-//        stage.setScene(new Scene(root));
-        stage.setTitle("Search");
-        stage.setScene(scene);
-        stage.show();
-    }
+
     private void resetFields(){
         // Clear form fields after adding
         titleField.clear();
@@ -137,11 +116,14 @@ public class BooksController extends BaseController{
     private void handleReturnBookButton(ActionEvent event) {
         // Implement return book logic
     }
-    private void showErrorAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+    private void initializeTable(){
+        id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        title.setCellValueFactory(new PropertyValueFactory<>("title"));
+        author.setCellValueFactory(new PropertyValueFactory<>("author"));
+        genre.setCellValueFactory(new PropertyValueFactory<>("genre"));
+        isIssued.setCellValueFactory(new PropertyValueFactory<>("isIssued"));
+        transactionCount.setCellValueFactory(new PropertyValueFactory<>("transactionCount"));
+
     }
+
 }

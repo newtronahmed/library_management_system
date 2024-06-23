@@ -1,19 +1,14 @@
 package com.example.librarymanagemensystem.controllers;
 
 
-import com.example.librarymanagemensystem.db.BookDAO;
+import com.example.librarymanagemensystem.DAO.BookDAO;
 import com.example.librarymanagemensystem.models.Book;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 import java.util.stream.Collectors;
@@ -36,11 +31,7 @@ public class SearchController extends BaseController {
 
 
     public void initialize () {
-        id.setCellValueFactory(new PropertyValueFactory<>("id"));
-        title.setCellValueFactory(new PropertyValueFactory<>("title"));
-        author.setCellValueFactory(new PropertyValueFactory<>("author"));
-        author.setCellValueFactory(new PropertyValueFactory<>("genre"));
-        isIssued.setCellValueFactory(new PropertyValueFactory<>("isIssued"));
+        initializeTable();
     }
     @FXML
     public void handleSearch() {
@@ -95,6 +86,13 @@ public class SearchController extends BaseController {
                 .filter(book -> book.getTitle().toLowerCase().contains(title.toLowerCase()))
                 .collect(Collectors.toList());
 
+    }
+    private void initializeTable (){
+        id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        title.setCellValueFactory(new PropertyValueFactory<>("title"));
+        author.setCellValueFactory(new PropertyValueFactory<>("author"));
+        author.setCellValueFactory(new PropertyValueFactory<>("genre"));
+        isIssued.setCellValueFactory(new PropertyValueFactory<>("isIssued"));
     }
 }
 

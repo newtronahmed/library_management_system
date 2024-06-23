@@ -65,7 +65,6 @@ public class MainController {
         IssueBookController issueController = fxmlLoader.getController();
         issueController.setMainController(this);
         issueController.setStage(stage);
-//        stage.setScene(new Scene(root));
         stage.setTitle("Issue Books");
         stage.setScene(scene);
         stage.show();

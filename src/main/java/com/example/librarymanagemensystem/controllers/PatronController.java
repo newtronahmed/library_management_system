@@ -11,12 +11,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import com.example.librarymanagemensystem.models.Patron;
-import com.example.librarymanagemensystem.db.PatronDAO;
+import com.example.librarymanagemensystem.DAO.PatronDAO;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -89,7 +88,6 @@ public class PatronController extends  BaseController{
 
         // Add the Patron to the TableView and Queue
         observablePatron.add(newPatron);
-//        observablePatron.remove();
         PatronQueue.add(newPatron);
 
         // Clear form fields after adding
@@ -117,31 +115,10 @@ public class PatronController extends  BaseController{
 
     }
 
-    // Handle other button actions (Search, Return Patron, etc.)
-    @FXML
-    private void handleSearchButton(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("search.fxml"));
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(fxmlLoader.load());
-//        stage.setScene(new Scene(root));
-        SearchController searchController = fxmlLoader.getController();
-        searchController.setMainController(this.mainController);
-        searchController.setStage(stage);
-        stage.setTitle("Search");
-        stage.setScene(scene);
-        stage.show();
-    }
-
     @FXML
     private void handleReturnPatronButton(ActionEvent event) {
         // Implement return Patron logic
     }
-    private void showErrorAlert(String name, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(name);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
+
 }
 

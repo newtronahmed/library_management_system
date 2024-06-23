@@ -1,5 +1,6 @@
-package com.example.librarymanagemensystem.db;
+package com.example.librarymanagemensystem.DAO;
 
+import com.example.librarymanagemensystem.db.DatabaseConnection;
 import com.example.librarymanagemensystem.models.Patron;
 
 import java.sql.*;
@@ -9,8 +10,7 @@ import java.util.Queue;
 
 
 public class PatronDAO {
-//    DatabaseConnection dbc = new DatabaseConnection();
-    
+
     // CRUD Operations for Patron
     public static void addPatron(Patron Patron) {
         String sql = "INSERT INTO Patrons (name, email) VALUES (?, ?)";

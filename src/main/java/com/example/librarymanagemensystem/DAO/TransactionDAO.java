@@ -1,13 +1,12 @@
-package com.example.librarymanagemensystem.db;
+package com.example.librarymanagemensystem.DAO;
 
-import com.example.librarymanagemensystem.models.Book;
+import com.example.librarymanagemensystem.db.DatabaseConnection;
 import com.example.librarymanagemensystem.models.Transaction;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 
 public class TransactionDAO {
 
