@@ -1,5 +1,6 @@
 package com.example.librarymanagemensystem.controllers;
 
+import com.example.librarymanagemensystem.DAO.ReservationDAO;
 import com.example.librarymanagemensystem.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,8 +43,6 @@ public class MainController {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("manage-patrons.fxml"));
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(fxmlLoader.load());
-//        stage.setScene(new Scene(root))
-//        ;
         PatronController patronController = fxmlLoader.getController();
         patronController.setMainController(this);
         patronController.setStage(stage);
@@ -60,6 +59,18 @@ public class MainController {
         issueController.setMainController(this);
         issueController.setStage(stage);
         stage.setTitle("Issue Books");
+        stage.setScene(scene);
+        stage.show();
+
+    }
+    public void handleReserveBookButton(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("reservation-view.fxml"));
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(fxmlLoader.load());
+        ReservationController reservationController = fxmlLoader.getController();
+        reservationController.setMainController(this);
+        reservationController.setStage(stage);
+        stage.setTitle("Reservations");
         stage.setScene(scene);
         stage.show();
 

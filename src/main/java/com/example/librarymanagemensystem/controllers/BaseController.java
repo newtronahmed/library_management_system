@@ -33,6 +33,13 @@ public abstract class BaseController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+    protected void showAlert(String title, String message, Alert.AlertType type) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
     @FXML
     private void handleSearchButton(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("search.fxml"));

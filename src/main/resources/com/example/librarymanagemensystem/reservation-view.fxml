@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.librarymanagemensystem.controllers.ReservationController" >
+    <TextField fx:id="bookIdField" promptText="Book ID"/>
+    <TextField fx:id="patronIdField" promptText="Patron ID"/>
+    <DatePicker fx:id="reservationDatePicker" promptText="Reservation Date"/>
+    <ComboBox fx:id="statusComboBox">
+        <items>
+<!--            <FXCollections fx:factory="observableArrayList">-->
+<!--                <String fx:value="ACTIVE"/>-->
+<!--                <String fx:value="INACTIVE"/>-->
+<!--            </FXCollections>-->
+        </items>
+    </ComboBox>
+    <Button text="Reserve Book" onAction="#handleReserveBook" fx:id="reserveButton"/>
+    <Label fx:id="statusLabel" textFill="red"/>
+    <TableView fx:id="reservationTable">
+        <columns>
+            <TableColumn fx:id="idColumn" text="ID"/>
+            <TableColumn fx:id="bookIdColumn" text="Book ID"/>
+            <TableColumn fx:id="patronIdColumn" text="Patron ID"/>
+            <TableColumn fx:id="reservationDateColumn" text="Reservation Date"/>
+            <TableColumn fx:id="statusColumn" text="Status"/>
+        </columns>
+    </TableView>
+</VBox>

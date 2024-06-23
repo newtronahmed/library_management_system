@@ -108,7 +108,7 @@ public class PatronController extends  BaseController{
             return;
         }
         if (patronDAO.addPatrons(PatronQueue)){
-            showErrorAlert("Success", "Successfully saved to DB");
+            showAlert("Success", "Successfully saved to DB", Alert.AlertType.INFORMATION);
             tableView.refresh();
             PatronQueue.clear();
         }

@@ -4,9 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -14,9 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import com.example.librarymanagemensystem.models.Book;
 import com.example.librarymanagemensystem.DAO.BookDAO;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -79,7 +74,6 @@ public class BooksController extends BaseController {
 
         // Add the book to the TableView and Queue
         observableBooks.add(newBook);
-//        observableBooks.remove();
         bookQueue.add(newBook);
         resetFields();
 
@@ -96,11 +90,10 @@ public class BooksController extends BaseController {
             return;
         }
             if (bookDAO.addBooks(bookQueue)){
-                showErrorAlert("Success", "Successfully saved to DB");
+                showAlert("Success", "Successfully saved to DB", Alert.AlertType.INFORMATION);
                 tableView.refresh();
                 bookQueue.clear();
             }
-
     }
 
     private void resetFields(){
