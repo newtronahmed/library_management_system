@@ -1,7 +1,9 @@
 package com.example.librarymanagemensystem.DAO;
 
 import com.example.librarymanagemensystem.db.DatabaseConnection;
+import com.example.librarymanagemensystem.models.Book;
 import com.example.librarymanagemensystem.models.Patron;
+import com.example.librarymanagemensystem.utils.DatabaseUtils;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -22,53 +24,44 @@ public class PatronDAO {
             e.printStackTrace();
         }
     }
-    public static boolean addPatrons (Queue<Patron> pendingPatrons){
+    public  boolean addPatrons (Queue<Patron> pendingPatrons){
         Connection conn = null;
-        PreparedStatement stmt = null;
         boolean success = false;
 
         try {
-//            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-            conn = DatabaseConnection.getConnection();
-            conn.setAutoCommit(false); // Start transaction
+            conn = DatabaseUtils.getConnection();
+            DatabaseUtils.beginTransaction(conn);
 
-            while (!pendingPatrons.isEmpty()) {
-                Patron Patron = pendingPatrons.poll(); // Remove from the front of the queue
-                String sql = "INSERT INTO Patrons (name, email, membershipDate) VALUES (?, ?, ?)";
-                stmt = conn.prepareStatement(sql);
-                stmt.setString(1, Patron.getName());
-                stmt.setString(2, Patron.getEmail());
-                stmt.setDate(3, Patron.getMembershipDate());
-                stmt.executeUpdate();
-            }
+            processPatrons(conn, pendingPatrons);
 
-            conn.commit(); // Commit transaction if all inserts are successful
+            DatabaseUtils.commitTransaction(conn);
             success = true;
         } catch (SQLException e) {
-            System.err.println("Error saving Patrons: " + e.getMessage());
-            try {
-                if (conn != null) {
-                    conn.rollback(); // Rollback if any error occurs
-                }
-            } catch (SQLException rollbackEx) {
-                System.err.println("Error rolling back transaction: " + rollbackEx.getMessage());
-            }
+            handleSQLException(conn, e);
         } finally {
-            // Close resources
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.setAutoCommit(true); // Reset auto-commit to true
-                    conn.close();
-                }
-            } catch (SQLException closeEx) {
-                System.err.println("Error closing resources: " + closeEx.getMessage());
-            }
+            DatabaseUtils.closeResources(conn);
         }
 
         return success;
+    }
+    private void processPatrons(Connection conn, Queue<Patron> pendingPatrons) throws SQLException {
+        while (!pendingPatrons.isEmpty()) {
+            Patron patron = pendingPatrons.poll(); // Remove from the front of the queue
+            insertPatron(conn, patron);
+        }
+    }
+    public static void insertPatron(Connection conn, Patron patron) throws SQLException {
+        String sql = "INSERT INTO Patrons (name, email, membershipDate) VALUES (?, ?, ?)";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, patron.getName());
+            stmt.setString(2, patron.getEmail());
+            stmt.setDate(3, patron.getMembershipDate());
+            stmt.executeUpdate();
+        }
+    }
+    private void handleSQLException(Connection conn, SQLException e) {
+        System.err.println("Error saving patrons: " + e.getMessage());
+        DatabaseUtils.rollbackTransaction(conn);
     }
 
     public Patron getPatron(int id) {

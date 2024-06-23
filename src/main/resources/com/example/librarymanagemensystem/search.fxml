@@ -7,7 +7,7 @@
     <HBox spacing="10">
         <TextField fx:id="searchTextField" promptText="Enter book title to search" HBox.hgrow="ALWAYS"/>
         <Button text="Search" onAction="#handleSearch"/>
-        <Button text="Go to main page" onAction="#gotomainpage" />
+        <Button text="Go to main page" onAction="#goToMainPage" />
 
     </HBox>
     <TableView fx:id="resultsTableView" VBox.vgrow="ALWAYS">

@@ -23,11 +23,6 @@ public class MainController {
     @FXML
     private Button issue_book_button;
 
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
-
 
     @FXML
     public void handleViewBookButton(ActionEvent event) throws IOException {
@@ -37,7 +32,6 @@ public class MainController {
         BooksController booksController = fxmlLoader.getController();
         booksController.setMainController(this);
         booksController.setStage(stage);
-//        stage.setScene(new Scene(root));
         stage.setTitle("Books");
         stage.setScene(scene);
         stage.show();

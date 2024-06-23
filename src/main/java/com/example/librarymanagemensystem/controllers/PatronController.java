@@ -107,7 +107,7 @@ public class PatronController extends  BaseController{
         if(PatronQueue.isEmpty()){
             return;
         }
-        if (PatronDAO.addPatrons(PatronQueue)){
+        if (patronDAO.addPatrons(PatronQueue)){
             showErrorAlert("Success", "Successfully saved to DB");
             tableView.refresh();
             PatronQueue.clear();

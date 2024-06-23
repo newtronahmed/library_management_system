@@ -1,6 +1,7 @@
 package com.example.librarymanagemensystem.DAO;
 import com.example.librarymanagemensystem.db.DatabaseConnection;
 import com.example.librarymanagemensystem.models.*;
+import com.example.librarymanagemensystem.utils.DatabaseUtils;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -24,51 +25,43 @@ public class BookDAO {
     }
     public boolean addBooks (Queue<Book> pendingBooks){
         Connection conn = null;
-        PreparedStatement stmt = null;
         boolean success = false;
 
         try {
-//            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-            conn = DatabaseConnection.getConnection();
-            conn.setAutoCommit(false); // Start transaction
+            conn = DatabaseUtils.getConnection();
+            DatabaseUtils.beginTransaction(conn);
 
-            while (!pendingBooks.isEmpty()) {
-                Book book = pendingBooks.poll(); // Remove from the front of the queue
-                String sql = "INSERT INTO books (title, author, genre) VALUES (?, ?, ?)";
-                stmt = conn.prepareStatement(sql);
-                stmt.setString(1, book.getTitle());
-                stmt.setString(2, book.getAuthor());
-                stmt.setString(3, book.getGenre());
-                stmt.executeUpdate();
-            }
+            processBooks(conn, pendingBooks);
 
-            conn.commit(); // Commit transaction if all inserts are successful
+            DatabaseUtils.commitTransaction(conn);
             success = true;
         } catch (SQLException e) {
-            System.err.println("Error saving books: " + e.getMessage());
-            try {
-                if (conn != null) {
-                    conn.rollback(); // Rollback if any error occurs
-                }
-            } catch (SQLException rollbackEx) {
-                System.err.println("Error rolling back transaction: " + rollbackEx.getMessage());
-            }
+            handleSQLException(conn, e);
         } finally {
-            // Close resources
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.setAutoCommit(true); // Reset auto-commit to true
-                    conn.close();
-                }
-            } catch (SQLException closeEx) {
-                System.err.println("Error closing resources: " + closeEx.getMessage());
-            }
+            DatabaseUtils.closeResources(conn);
         }
 
         return success;
+    }
+    private void processBooks(Connection conn, Queue<Book> pendingBooks) throws SQLException {
+        while (!pendingBooks.isEmpty()) {
+            Book book = pendingBooks.poll(); // Remove from the front of the queue
+            insertBook(conn, book);
+        }
+    }
+    public static void insertBook(Connection conn, Book book) throws SQLException {
+        String sql = "INSERT INTO books (title, author, genre) VALUES (?, ?, ?)";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, book.getTitle());
+            stmt.setString(2, book.getAuthor());
+            stmt.setString(3, book.getGenre());
+            stmt.executeUpdate();
+        }
+    }
+
+    private void handleSQLException(Connection conn, SQLException e) {
+        System.err.println("Error saving books: " + e.getMessage());
+        DatabaseUtils.rollbackTransaction(conn);
     }
 
     public static Book getBook(int id) {

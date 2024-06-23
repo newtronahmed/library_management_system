@@ -23,7 +23,7 @@ public abstract class BaseController {
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
     }
-    public void gotomainpage() throws IOException {
+    public void goToMainPage() throws IOException {
         mainController.loadMainView(stage);
     }
     protected void showErrorAlert(String title, String message) {

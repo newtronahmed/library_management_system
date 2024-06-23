@@ -15,6 +15,6 @@
     <Button fx:id="addToQueueButton" text="Add to Queue" onAction="#handleAddToQueue"/>
     <ListView fx:id="pendingIssuesListView"/>
     <Button fx:id="saveTransactionsButton" text="Save Transactions" onAction="#handleSaveTransactions"/>
-    <Button text="Go to main page" onAction="#gotomainpage" />
+    <Button text="Go to main page" onAction="#goToMainPage" />
 
 </VBox>

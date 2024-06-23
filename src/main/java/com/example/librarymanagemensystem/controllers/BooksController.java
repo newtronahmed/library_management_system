@@ -103,8 +103,6 @@ public class BooksController extends BaseController {
 
     }
 
-
-
     private void resetFields(){
         // Clear form fields after adding
         titleField.clear();
