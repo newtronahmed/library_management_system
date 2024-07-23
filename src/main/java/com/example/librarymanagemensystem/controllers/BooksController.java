@@ -46,7 +46,9 @@ public class BooksController extends BaseController {
     private Queue<Book> bookQueue;
     private ObservableList<Book> observableBooks;
     private BookDAO bookDAO = new BookDAO();
-
+    public void setBookDAO(BookDAO bookDAO) {
+        this.bookDAO = bookDAO;
+    }
     @FXML
     public void initialize() {
         initializeTable();
@@ -78,6 +80,7 @@ public class BooksController extends BaseController {
         resetFields();
 
     }
+
 
     @FXML
     private void handleSaveButton(ActionEvent event) {
@@ -115,6 +118,11 @@ public class BooksController extends BaseController {
         isIssued.setCellValueFactory(new PropertyValueFactory<>("isIssued"));
         transactionCount.setCellValueFactory(new PropertyValueFactory<>("transactionCount"));
 
+    }
+    @FXML
+    public void loadBooks() {
+        List<Book> books = bookDAO.getAllBooks();
+        tableView.getItems().setAll(books);
     }
 
 }

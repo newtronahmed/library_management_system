@@ -7,6 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
+import java.util.stream.Collectors;
 
 public class BookDAO {
     
@@ -140,6 +141,11 @@ public class BookDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public  List<Book> searchBooks(String title){
+        return this.getAllBooksWithIssued().stream()
+                .filter(book -> book.getTitle().toLowerCase().contains(title.toLowerCase()))
+                .collect(Collectors.toList());
     }
 
 }
