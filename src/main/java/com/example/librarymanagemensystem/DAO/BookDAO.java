@@ -13,11 +13,11 @@ public class BookDAO {
 
     // CRUD Operations for Book
     public static void addBook(Book book) {
-        String sql = "INSERT INTO books (title, author, isIssued) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO books (title, author, genre) VALUES (?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, book.getTitle());
             pstmt.setString(2, book.getAuthor());
-            pstmt.setBoolean(3, book.getIsIssued());
+            pstmt.setString(3, book.getGenre());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -70,7 +70,7 @@ public class BookDAO {
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                return new Book(rs.getInt("id"), rs.getString("title"), rs.getString("author"),rs.getString("genre"), rs.getBoolean("isIssued"));
+                return new Book(rs.getInt("id"), rs.getString("title"), rs.getString("author"),rs.getString("genre"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,7 +83,7 @@ public class BookDAO {
         String sql = "SELECT * FROM books";
         try (Connection conn = DatabaseConnection.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                books.add(new Book(rs.getInt("id"), rs.getString("title"), rs.getString("author"),rs.getString("genre"), rs.getBoolean("isIssued")));
+                books.add(new Book(rs.getInt("id"), rs.getString("title"), rs.getString("author"),rs.getString("genre")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -118,10 +118,12 @@ public class BookDAO {
     }
 
     public static void updateBook(Book book) {
-        String sql = "UPDATE books SET title = ?, author = ?, isIssued = ? WHERE id = ?";
+        String sql = "UPDATE books SET title = ?, author = ?, genre= ? WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, book.getTitle());
             pstmt.setString(2, book.getAuthor());
+            pstmt.setString(3, book.getGenre());
+
 //            pstmt.setBoolean(3, book.isIssued());
             pstmt.setInt(4, book.getId());
             pstmt.executeUpdate();

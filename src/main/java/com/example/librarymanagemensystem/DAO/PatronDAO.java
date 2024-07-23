@@ -64,7 +64,7 @@ public class PatronDAO {
         DatabaseUtils.rollbackTransaction(conn);
     }
 
-    public Patron getPatron(int id) {
+    public static Patron getPatron(int id) {
         String sql = "SELECT * FROM Patrons WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
@@ -78,7 +78,7 @@ public class PatronDAO {
         return null;
     }
 
-    public  List<Patron> getAllPatrons() {
+    public static List<Patron> getAllPatrons() {
         List<Patron> Patrons = new ArrayList<>();
         String sql = "SELECT * FROM Patrons";
         try (Connection conn = DatabaseConnection.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
@@ -91,7 +91,7 @@ public class PatronDAO {
         return Patrons;
     }
 
-    public void updatePatron(Patron Patron) {
+    public static void updatePatron(Patron Patron) {
         String sql = "UPDATE Patrons SET name = ?, email = ? WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, Patron.getName());
@@ -103,7 +103,7 @@ public class PatronDAO {
         }
     }
 
-    public void deletePatron(int id) {
+    public static void deletePatron(int id) {
         String sql = "DELETE FROM Patrons WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);

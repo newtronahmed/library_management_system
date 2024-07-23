@@ -16,12 +16,11 @@ public class Book {
         this.genre = genre;
     }
     // Constructor
-    public Book(int id, String title, String author, String genre, boolean isIssued) {
+    public Book(int id, String title, String author, String genre) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.genre = genre;
-        this.isIssued = isIssued;
     }
     public Book(int id, String title, String author, String genre, boolean isIssued, int transactionCount) {
         this.id = id;
@@ -31,9 +30,6 @@ public class Book {
         this.isIssued = isIssued;
         this.transactionCount = transactionCount;
     }
-
-//    public Book(int id, String title, String author, boolean isIssued) {
-//    }
 
     // Getters and Setters
     public int getId() {
@@ -68,13 +64,6 @@ public class Book {
         this.genre = genre;
     }
 
-//    public int getPublishedYear() {
-//        return publishedYear;
-//    }
-//
-//    public void setPublishedYear(int publishedYear) {
-//        this.publishedYear = publishedYear;
-//    }
     public Boolean getIsIssued(){
         return isIssued;
     }
