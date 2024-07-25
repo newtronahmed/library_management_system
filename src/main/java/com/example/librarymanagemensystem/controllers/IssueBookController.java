@@ -26,12 +26,12 @@ public class IssueBookController extends BaseController {
     private BookDAO bookDAO = new BookDAO();
     private PatronDAO patronDAO = new PatronDAO();
     private TransactionDAO transactionDAO = new TransactionDAO();
-    private ObservableList<Book> books = FXCollections.observableArrayList();
-    private ObservableList<Patron> patrons = FXCollections.observableArrayList();
-    private ObservableList<Book> pendingIssues = FXCollections.observableArrayList();
+    private final ObservableList<Book> books = FXCollections.observableArrayList();
+    private final ObservableList<Patron> patrons = FXCollections.observableArrayList();
+    private final ObservableList<Book> pendingIssues = FXCollections.observableArrayList();
 
     @FXML
-    private void initialize() {
+    public void initialize() {
         bookComboBox.setItems(books);
         patronComboBox.setItems(patrons);
         pendingIssuesListView.setItems(pendingIssues);
@@ -53,6 +53,15 @@ public class IssueBookController extends BaseController {
 
         patronComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) ->
                 addToQueueButton.setDisable(newVal == null || bookComboBox.getValue() == null));
+    }
+    public void setBookDAO(BookDAO bookDAO) {
+        this.bookDAO = bookDAO;
+    }
+    public void setPatronDAO(PatronDAO patronDAO) {
+        this.patronDAO = patronDAO;
+    }
+    public void setTransactionDAO(TransactionDAO transactionDAO) {
+        this.transactionDAO = transactionDAO;
     }
 
     @FXML
@@ -85,6 +94,9 @@ public class IssueBookController extends BaseController {
         } else {
             showAlert("Error", "Failed to issue books. Please try again.");
         }
+    }
+    public ObservableList<Book>getPendingIssues() {
+        return this.pendingIssues;
     }
 
     private void clearSelections() {

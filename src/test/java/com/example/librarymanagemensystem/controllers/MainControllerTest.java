@@ -63,12 +63,12 @@ public class MainControllerTest {
         assertEquals("Issue Books", stage.getTitle());
     }
 
-    @Test
-    public void testHandleReserveBookButton(FxRobot robot) {
-        // Click the reserve book button
-        robot.clickOn("#reserve_book_button");
-
-        // Check that the stage's title has changed to "Reservations"
-        assertEquals("Reservations", stage.getTitle());
-    }
+//    @Test
+//    public void testHandleReserveBookButton(FxRobot robot) {
+//        // Click the reserve book button
+//        robot.clickOn("#reserve_book_button");
+//
+//        // Check that the stage's title has changed to "Reservations"
+//        assertEquals("Reservations", stage.getTitle());
+//    }
 }

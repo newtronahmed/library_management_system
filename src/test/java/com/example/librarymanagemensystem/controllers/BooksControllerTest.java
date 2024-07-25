@@ -67,7 +67,7 @@ public class BooksControllerTest {
         // Load the books page
         Platform.runLater(() -> {
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("manage-books2.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("manage-books.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
                 stage.setScene(scene);
                 booksController = fxmlLoader.getController();
