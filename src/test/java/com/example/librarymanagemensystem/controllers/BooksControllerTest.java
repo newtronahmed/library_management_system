@@ -21,8 +21,7 @@ import com.example.librarymanagemensystem.models.Book;
 import com.example.librarymanagemensystem.DAO.BookDAO;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
+
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -90,21 +89,6 @@ public class BooksControllerTest {
             }
         });
     }
-//    @Test
-//    public void testSearchBooks(FxRobot robot) {
-//        // Mock the book list to be returned by the BookDAO
-//        List<Book> mockBooks = Arrays.asList(new Book("Title1", "Author1","Genre1"), new Book("Title2", "Author2", "Genre2"));
-//        when(bookDAOMock. searchBooks(anyString())).thenReturn(mockBooks);
-//
-//        // Set the search text field
-//        robot.clickOn("#searchField").write("Title1");
-//
-//        // Call the method under test
-//        booksController.searchBooks();
-//
-//        // Verify the books were loaded into the table view
-//        assertEquals(mockBooks.size(), tableView.getItems().size());
-//        assertEquals(mockBooks.get(0), tableView.getItems().get(0));
-//    }
+
 
 }
