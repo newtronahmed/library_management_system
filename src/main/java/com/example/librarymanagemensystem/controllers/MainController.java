@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MainController {
+    @FXML
     public Button reserve_book_button;
     @FXML
     private Label welcomeText;
@@ -62,19 +63,6 @@ public class MainController {
         stage.show();
 
     }
-//    public void handleReserveBookButton(ActionEvent event) throws IOException {
-//        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("reservation-view.fxml"));
-//        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-//        Scene scene = new Scene(fxmlLoader.load());
-//        ReservationController reservationController = fxmlLoader.getController();
-//        reservationController.setMainController(this);
-//        reservationController.setStage(stage);
-//        stage.setTitle("Reservations");
-//        stage.setScene(scene);
-//        stage.show();
-//
-//    }
-
     public void loadMainView(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());

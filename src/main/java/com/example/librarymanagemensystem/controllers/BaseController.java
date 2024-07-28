@@ -26,13 +26,7 @@ public abstract class BaseController {
     public void goToMainPage() throws IOException {
         mainController.loadMainView(stage);
     }
-    protected void showErrorAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
+
     protected void showAlert(String title, String message, Alert.AlertType type) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
